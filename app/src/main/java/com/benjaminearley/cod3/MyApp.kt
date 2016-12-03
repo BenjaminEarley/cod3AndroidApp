@@ -15,7 +15,7 @@ class MyApp : Application() {
 
         netComponent = DaggerNetComponent.builder()
                 .appModule(AppModule(this))
-                .netModule(NetModule("https://???.com"))
+                .netModule(NetModule("http://cod3.azurewebsites.net"))
                 .build()
 
         cod3ApiComponent = DaggerCod3ApiComponent.builder()

@@ -34,7 +34,7 @@ class NetModule(private var baseUrl: String) {
     @Provides
     @Singleton
     fun provideGson(): Gson = GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
             .create()
 
     @Provides
