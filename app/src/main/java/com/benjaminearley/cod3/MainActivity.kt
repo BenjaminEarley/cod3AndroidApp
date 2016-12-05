@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.View
 import com.benjaminearley.cod3.Cod3ApiModule.Cod3ApiInterface
 import com.google.android.gms.location.LocationRequest
@@ -144,10 +143,7 @@ class MainActivity : RxActivity() {
 
     fun getPrettyTime(response: Response): String {
 
-        Log.d("FOOBAR", response.toString())
-
         return response.average?.let {
-            Log.d("FOOBAR", "not null")
             val foo = (it) * 60 * 1000
             DateUtils.getRelativeTimeSpanString(System.currentTimeMillis() + foo.toLong(), System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString()
         } ?: {
