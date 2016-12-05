@@ -1,6 +1,5 @@
 package com.benjaminearley.cod3;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.CheckResult;
@@ -13,6 +12,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.RxLifecycle;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 

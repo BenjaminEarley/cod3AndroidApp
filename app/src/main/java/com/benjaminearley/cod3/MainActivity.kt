@@ -1,7 +1,6 @@
 package com.benjaminearley.cod3
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -29,6 +28,7 @@ class MainActivity : RxActivity() {
 
     @Inject
     lateinit var cod3ApiInterface: Cod3ApiInterface
+    lateinit var rxLocation: RxLocation
 
     var gettingLocation = false
 
@@ -40,6 +40,7 @@ class MainActivity : RxActivity() {
         setSupportActionBar(toolbar)
 
         MyApp.cod3ApiComponent.inject(this)
+        rxLocation = RxLocation(this)
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -48,12 +49,12 @@ class MainActivity : RxActivity() {
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     0)
         } else {
-            getLocation(this)
+            getLocation(rxLocation)
         }
 
         relocate.onClick {
             if (!gettingLocation) {
-                getLocation(this)
+                getLocation(rxLocation)
             }
         }
 
@@ -66,23 +67,21 @@ class MainActivity : RxActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    getLocation(this)
+                    getLocation(rxLocation)
                 }
             }
         }
     }
 
-    fun getLocation(context: Context) {
+    fun getLocation(rxLocation: RxLocation) {
 
         gettingLocation = true
-
-        val rxLocation = RxLocation(context)
 
         val locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(1000)
 
-        RxLocation(context)
+        rxLocation
                 .location()
                 .updates(locationRequest)
                 .subscribeOn(Schedulers.computation())
@@ -125,13 +124,13 @@ class MainActivity : RxActivity() {
 
                     ems.with({
                         averageTime.text = getPrettyTime(it)
-                    },{
+                    }, {
                         averageTime.text = getString(R.string.error)
                     })
 
                     police.with({
                         averagePoliceTime.text = getPrettyTime(it)
-                    },{
+                    }, {
                         averagePoliceTime.text = getString(R.string.error)
                     })
 

@@ -9,5 +9,5 @@ sealed class Sum<out A : Any, out B : Any> {
         override fun <C> with(l: (A) -> C, r: (B) -> C): C = r(value)
     }
 
-    abstract fun <C> with(l: (A) ->  C, r: (B) -> C): C
+    abstract fun <C> with(l: (A) -> C, r: (B) -> C): C
 }
